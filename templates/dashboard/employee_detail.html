@@ -1,0 +1,115 @@
+{% block content %}
+<section class="content">
+    <section class="container-fluid">
+        <section class="row">
+            <section class="col col-lg-12 col-md-12  col-sm-12">
+                {% if messages %} {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags}}" {% endif %}>
+                    {{ message }}
+                    <button type="button" class="close" id="override-start" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                         </button>
+                </div>
+                {% endfor %} {% endif %}
+
+            </section>
+        </section>
+        <section class="row">
+            <section class="text-center">
+                <h3><span class="employee-name-title">{{ employee.get_full_name}}</span></h3>
+            </section>
+        </section>
+
+        <section class="row">
+            <section class="col col-lg-4 col-md-4 col-sm-12 profile-wrapper">
+                <section class="text-centered" style="margin-top: 3px;">
+
+                    <ul class="list-group">
+                        <li class="list-group-item"><span>Fullname</span>
+                            <div>{{ employee.get_full_name }}</div>
+                        </li>
+                        {% if employee.email %}
+                        <li class="list-group-item"><span>Email</span>
+                            <div>{{ employee.email}}</div>
+                        </li>
+                        {% endif %}
+                        <li class="list-group-item"><span>Department</span>
+                            <div>{{ employee.department}}</div>
+                        </li>
+                        <li class="list-group-item"><span>contact no</span>
+                            <div>{{ employee.contactnum}}</div>
+                        </li>
+                        <li class="list-group-item"><span>address</span>
+                            <div>{{ employee.address}}</div>
+                        </li>
+
+                        {% if employee.is_blocked %}
+                        <li class="list-group-item"><span>Status</span>
+                            <div>Inactive</div>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item"><span>Status</span>
+                            <div> active</div>
+                        </li>
+                        {% endif %}
+                        <div>
+                            <span style="font-style: italic;">updated - {{employee.updated}}</span>
+                        </div>
+
+                    </ul>
+                </section>
+            </section>
+            <section class="col col-lg-8">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                PERSONAL INFORMATIONS 
+                              </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col col-lg-6">
+
+                                            {% if employee %}
+
+                                            <div class="list-group" id="list-tab" role="tablist">
+                                                <!-- <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Salutation</span> <div>{{ employee.title }}</div> -->
+                                                </a> {% if employee.firstname %}
+                                                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Firstname</span> <div> {{ employee.firstname}} </div>
+                                            </a> {% endif %} {% if employee.lastname %}
+                                                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Lastname</span> <div> {{ employee.lastname }} </div>
+                                            </a> {% endif %} {% if employee.othername %}
+                                                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Othername</span> <div>{{ employee.othername}} </div>
+                                            </div>
+                                            </a> {% endif %} {% if employee.email %}
+                                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Email </span><div>{{ employee.email }} </div>
+                                            </a> {% endif %} {% if employee.contact %}
+                                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Contact</span> <div> {{ employee.contact }}</div></a> {% endif %} {%
+                                                if employee.contact%}
+                                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Employee ID</span> <div>{{ employee.employeeid }}</div></a> {% endif
+                                                %} {% if employee.address %}
+                                                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="" role="tab" aria-controls=""><span>Address</span> <div>{{ employee.address }}</div></a> {% endif %} {%
+                                                if request.user.is_superuser %}
+                                                <div>
+                                                    <span><a href="{% url 'dashboard:edit' employee.id %}">Edit</a></span>
+                                                </div>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+</section>
+
+{% endblock %}

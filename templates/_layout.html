@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hiii</title>
+</head>
+
+<body>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="center-me-please ">
+            <li>
+                <a href="{% url 'dashboard:dashboard' %} ">Dashboard</a>
+            </li>
+            <li class="">
+                <a href="/">
+                    <i class="pe-7s-home"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+            {% if request.user.is_superuser and request.user.is_staff %}
+            <li>
+                <a href="{% url 'dashboard:employees' %}">
+                    <i class="pe-7s-users"></i>
+                    <p>Employee</p>
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                {% if request.user.is_superuser %}<a href="{% url 'dashboard:leaveslist' %}">{% else %}<a href="{% url 'dashboard:staffleavetable' %}"> {% endif %}
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Leave</p>
+                </a>
+            </li>
+        </ul>
+</body>
+
+</html>
